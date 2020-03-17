@@ -1,0 +1,2 @@
+class UlTrackersController < ApplicationController
+end
