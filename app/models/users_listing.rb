@@ -1,4 +1,4 @@
-class UserListing < ApplicationRecord
+class UsersListing < ApplicationRecord
     belongs_to :user 
     belongs_to :listing 
     has_many :ULTrackers
