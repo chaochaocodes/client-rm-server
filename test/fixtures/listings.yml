@@ -1,0 +1,37 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  prop_type: MyString
+  price: 1
+  year_built: 1
+  city: MyString
+  line: MyString
+  postal_code: MyString
+  state_code: MyString
+  state: MyString
+  county: MyString
+  beds: 1
+  baths: 1
+  sqft: 1
+  hoa_fee: 1
+  list_date: MyString
+  mls_id: MyString
+  photo: MyString
+
+two:
+  prop_type: MyString
+  price: 1
+  year_built: 1
+  city: MyString
+  line: MyString
+  postal_code: MyString
+  state_code: MyString
+  state: MyString
+  county: MyString
+  beds: 1
+  baths: 1
+  sqft: 1
+  hoa_fee: 1
+  list_date: MyString
+  mls_id: MyString
+  photo: MyString
