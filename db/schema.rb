@@ -17,26 +17,22 @@ ActiveRecord::Schema.define(version: 2020_03_13_223231) do
 
   create_table "listings", force: :cascade do |t|
     t.string "prop_type"
-    t.integer "price"
-    t.integer "year_built"
-    t.string "city"
-    t.string "line"
-    t.string "postal_code"
-    t.string "state_code"
-    t.string "state"
-    t.string "county"
+    t.string "price"
+    t.string "address"
     t.integer "beds"
     t.integer "baths"
-    t.integer "sqft"
-    t.integer "hoa_fee"
-    t.string "list_date"
-    t.string "mls_id"
+    t.string "sqft"
     t.string "photo"
+    t.string "city_state"
+    t.string "city"
+    t.string "state"
+    t.string "rdc_web_url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "tasks", force: :cascade do |t|
+    t.integer "user_id"
     t.string "task"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -50,6 +46,8 @@ ActiveRecord::Schema.define(version: 2020_03_13_223231) do
 
   create_table "ul_trackers", force: :cascade do |t|
     t.string "status"
+    t.string "tracker_id"
+    t.string "users_listing_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -64,6 +62,7 @@ ActiveRecord::Schema.define(version: 2020_03_13_223231) do
   create_table "users_listings", force: :cascade do |t|
     t.integer "user_id"
     t.integer "listing_id"
+    t.text "notes"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
