@@ -1,7 +1,4 @@
 class ListingsController < ApplicationController
-    # FOR_SALE = "https://realtor.p.rapidapi.com/properties/list-for-sale"
-    # RAPIDAPI_API_KEY = "72b1218e73msh46befd722be0f47p1b902ejsn53661bed7071"
-    # host = "realtor.p.rapidapi.com"
 
     def index
         listings = Listing.all 
@@ -18,19 +15,27 @@ class ListingsController < ApplicationController
         rapid_key = ENV["RAPIDAPI_KEY"]
         host = "realtor.p.rapidapi.com"
 
-        req = Faraday.get(realtor_url, {city: "New York City", offset: 0, limit: 5, state_code: "NY"}, {'X-RapidAPI-Host': host, 'X-RapidAPI-Key': rapid_key})
+        req = Faraday.get(realtor_url, {city: "New York City", offset: 0, limit: 20, state_code: "NY"}, {'X-RapidAPI-Host': host, 'X-RapidAPI-Key': rapid_key})
         res_body = JSON.parse(req.body)
         res_tracking_params = res_body["meta"]["tracking_params"]
         res_city = res_tracking_params["city"]
         res_state = res_tracking_params["state"]
         res_city_state = res_tracking_params["searchCityState"]
         res_body["listings"].each do |listing|
+            #extract property_id
             temp_listing = listing.extract!("prop_type", "price", "address", "beds", "baths", "sqft", "photo", "rdc_web_url")
             temp_listing["city_state"] = res_city_state
             temp_listing["city"] = res_city
             temp_listing["state"] = res_state
             listing_array << Listing.create(temp_listing)
         end
+
+        #loop thrpugh listing_array
+        #in loop 
+        #listing_array1.property_id get from api
+        #fill in these with response from api
+        #listing_array1.property_type
+        #listing_array1.amenities
         render json: listing_array
 
         #Saving a listing in the database and assigning it's properties
