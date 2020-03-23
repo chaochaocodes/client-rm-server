@@ -30,7 +30,7 @@ class ListingsController < ApplicationController
             listing_array << Listing.create(temp_listing)
         end
 
-        #loop thrpugh listing_array
+        #loop through listing_array
         #in loop 
         #listing_array1.property_id get from api
         #fill in these with response from api
@@ -38,25 +38,6 @@ class ListingsController < ApplicationController
         #listing_array1.amenities
         render json: listing_array
 
-        #Saving a listing in the database and assigning it's properties
-        # save_listings = Listing.create do |key|
-        #     key.prop_type = temp_listing["prop_type"]
-        #     key.price = temp_listing["price"]
-        #     key.address = temp_listing["address"] 
-        #     key.beds = temp_listing["beds"]
-        #     key.baths = temp_listing["baths"]
-        #     key.sqft = temp_listing["sqft"]
-        #     if temp_listing["photo"].length === 0
-        #         key.photo = "https://image.shutterstock.com/image-vector/no-image-available-icon-template-260nw-1036735678.jpg"
-        #     else 
-        #         key.photo = temp_listing["photo"]
-        #     end
-        #     key.city_state = temp_listing["city_state"]
-        #     key.rdc_web_url = temp_listing["rdc_web_url"]
-        #     key.city = temp_listing["city"]
-        #     key.state = temp_listing["state"]
-        # end
-        # render json: save_listings
     end
 
     def twenty
