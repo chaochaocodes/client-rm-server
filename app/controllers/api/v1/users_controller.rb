@@ -6,18 +6,29 @@ class Api::V1:: UsersController < ApplicationController
     end
     
     def create
-      @user = User.create(user_params)
+      @user = User.create(username: params[:user][:user][:username], password: params[:user][:user][:password])
+      # byebug
       if @user.valid?
         @token = encode_token(user_id: @user.id)
         render json: { user: UserSerializer.new(@user), jwt: @token }, status: :created
       else
-        render json: { error: 'failed to create user' }, status: :not_acceptable
+        render json: { error: @user.errors.full_messages }, status: :not_acceptable
       end
+    end
+
+    def destroy
+        user = User.find(params[:id])
+        if user.valid?
+          user.destroy
+          puts "USER DELETED!"
+        else
+          puts "User not valid"
+        end
     end
      
     private
     def user_params
-      params.require(:user).permit(:username, :password)
+      params.require(:user).permit(:username, :password, :pwconfirm)
     end
     
     # # def save_search
@@ -38,10 +49,6 @@ class Api::V1:: UsersController < ApplicationController
     #     user = User.find(params[:id])
     # end
 
-    # def destroy
-    #     user = User.find(params[:id])
-    #     user.destroy
-    # end
 
     # def update
     #     user = User.find(params[:id])
