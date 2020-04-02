@@ -12,7 +12,6 @@ Rails.application.routes.draw do
 
   get 'listings/api', to: 'listings#api_call'
   post 'listings/search', to: 'listings#search'
-  get 'listings/twenty', to: 'listings#twenty'
   resources :listings 
   resources :tasks
   resources :trackers

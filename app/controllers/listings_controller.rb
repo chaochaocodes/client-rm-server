@@ -13,7 +13,7 @@ class ListingsController < ApplicationController
         rapid_key = ENV["RAPIDAPI_KEY"]
         host = "realtor.p.rapidapi.com"
         
-        byebug
+        # byebug
         req = Faraday.get(realtor_url, {city: city, offset: 0, limit: 20, state_code: state}, {'X-RapidAPI-Host': host, 'X-RapidAPI-Key': rapid_key})
         res_body = JSON.parse(req.body)
         res_tracking_params = res_body["meta"]["tracking_params"]
@@ -38,15 +38,9 @@ class ListingsController < ApplicationController
         #listing_array1.amenities
 
         render json: listing_array
-
     end
 
-    def twenty
-        twentyListings = Listing.first(20)
-        render json: twentyListings
-    end
-
-    def search
+    def search(city="Seattle", state="WA")
         temp_listing = {}
         listing_array = []
         
@@ -55,7 +49,7 @@ class ListingsController < ApplicationController
         host = "realtor.p.rapidapi.com"
         
         # byebug
-        req = Faraday.get(realtor_url, {city: params[:search][:city], offset: 0, limit: 20, state_code: params[:search][:state]}, {'X-RapidAPI-Host': host, 'X-RapidAPI-Key': rapid_key})
+        req = Faraday.get(realtor_url, {city: params[:search][:city], offset: 0, limit: 100, state_code: params[:search][:state]}, {'X-RapidAPI-Host': host, 'X-RapidAPI-Key': rapid_key})
         res_body = JSON.parse(req.body)
         res_tracking_params = res_body["meta"]["tracking_params"]
         res_city = res_tracking_params["city"]
@@ -69,9 +63,7 @@ class ListingsController < ApplicationController
             temp_listing["state"] = res_state
             listing_array << Listing.find_or_create_by(temp_listing)
         end
-        listing_array
-        # api_call(params[:search][:city], params[:search][:state])
-        # render json: listing_array
+        render json: listing_array
     end
 
     def show
