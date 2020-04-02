@@ -7,7 +7,6 @@ class Api::V1:: UsersController < ApplicationController
     
     def create
       @user = User.create(username: params[:user][:user][:username], password: params[:user][:user][:password])
-      # byebug
       if @user.valid?
         @token = encode_token(user_id: @user.id)
         render json: { user: UserSerializer.new(@user), jwt: @token }, status: :created
@@ -26,19 +25,17 @@ class Api::V1:: UsersController < ApplicationController
         end
     end
      
+    def save_listing
+      listing = Listing.create(params[:listing][:result][0])
+      user = User.find(params[:user_id])
+      user.listings << listing
+    end
+
     private
     def user_params
       params.require(:user).permit(:username, :password, :pwconfirm)
     end
     
-    # # def save_search
-    # #     email = Email.find_or_create_by(address: params["address"], user_id: params["id"])
-    # #     user = User.find(params["id"])
-    # #     user.emails << email
-    # #     params["breaches"].map do |breach|
-    # #         email.breaches << Breach.find(breach["id"])
-    # #     end
-    # # end 
     
     # def show 
     #     user = User.find(params[:id])
@@ -48,7 +45,6 @@ class Api::V1:: UsersController < ApplicationController
     # def edit
     #     user = User.find(params[:id])
     # end
-
 
     # def update
     #     user = User.find(params[:id])

@@ -49,7 +49,7 @@ class ListingsController < ApplicationController
         host = "realtor.p.rapidapi.com"
         
         # byebug
-        req = Faraday.get(realtor_url, {city: params[:search][:city], offset: 0, limit: 100, state_code: params[:search][:state]}, {'X-RapidAPI-Host': host, 'X-RapidAPI-Key': rapid_key})
+        req = Faraday.get(realtor_url, {city: params[:search][:city], offset: 0, limit: 30, state_code: params[:search][:state]}, {'X-RapidAPI-Host': host, 'X-RapidAPI-Key': rapid_key})
         res_body = JSON.parse(req.body)
         res_tracking_params = res_body["meta"]["tracking_params"]
         res_city = res_tracking_params["city"]
@@ -61,7 +61,7 @@ class ListingsController < ApplicationController
             temp_listing["city_state"] = res_city_state
             temp_listing["city"] = res_city
             temp_listing["state"] = res_state
-            listing_array << Listing.find_or_create_by(temp_listing)
+            listing_array << Listing.new(temp_listing)
         end
         render json: listing_array
     end
