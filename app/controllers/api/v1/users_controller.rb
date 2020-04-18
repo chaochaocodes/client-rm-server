@@ -1,5 +1,5 @@
 class Api::V1:: UsersController < ApplicationController
-    # skip_before_action :authorized, only: [:create]
+    skip_before_action :authorized, only: [:create, :save_listing]
     
     def profile
         render json: {user: UserSerializer.new(current_user)}, status: :accepted 
@@ -15,7 +15,7 @@ class Api::V1:: UsersController < ApplicationController
       end
     end
 
-    def destroy
+    def delete
         user = User.find(params[:id])
         if user.valid?
           user.destroy
@@ -24,23 +24,22 @@ class Api::V1:: UsersController < ApplicationController
           puts "User not valid"
         end
     end
-     
-    def save_listing
-      listing = Listing.create(params[:listing][:result][0])
-      user = User.find(params[:user_id])
-      user.listings << listing
+
+    def show 
+        user = User.find(params[:id])
+        render json: user
+        
+    end
+
+    def saved_listings
+      user = User.find(params[:id])
+      render json: user.listings
     end
 
     private
     def user_params
       params.require(:user).permit(:username, :password, :pwconfirm)
     end
-    
-    
-    # def show 
-    #     user = User.find(params[:id])
-    #     render json: user+++
-    # end
 
     # def edit
     #     user = User.find(params[:id])
