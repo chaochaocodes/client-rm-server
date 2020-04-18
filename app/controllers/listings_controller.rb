@@ -1,4 +1,6 @@
 class ListingsController < ApplicationController
+    # show listings index without signing in
+    skip_before_action :authorized, only: [:create, :index]
 
     def index
         listings = Listing.all 
@@ -36,7 +38,7 @@ class ListingsController < ApplicationController
         #fill in these with response from api
         #listing_array1.property_type
         #listing_array1.amenities
-
+        # byebug
         render json: listing_array
     end
 
