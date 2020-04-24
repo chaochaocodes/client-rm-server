@@ -1,24 +1,13 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Client-RM 
 
-Things you may want to cover:
+Client-RM is a tool for tracking your progress to home ownership from start to finish.  Owning a home is an essential part of the American dream and the goal of this app is to help you achieve that dream. View the walkthrough video or check out the site to learn more!
 
-* Ruby version
+### Technologies Used: 
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- React.js with implementation of Routers
+- Bootstrapped with Create React App
+- Styled with Material UI components
+- Ruby on Rails API with JWT Authentication
+- Realtor.com® API to query real estate data
