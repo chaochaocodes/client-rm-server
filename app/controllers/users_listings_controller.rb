@@ -15,10 +15,14 @@ class UsersListingsController < ApplicationController
     end
 
     def delete_listing
-        listing = Listing.find_by(params[:listing][:result].permit!)
-        byebug
-        listing.destroy 
-        puts "Listing Deleted!"
+        @listing = Listing.find_by(params[:listing][:result].permit!)
+        # byebug
+        if @listing.valid?
+          @listing.destroy 
+          puts "Listing Deleted!"
+        else 
+          puts "Deletion Unsuccessful"
+        end 
     end
 
     # def show
