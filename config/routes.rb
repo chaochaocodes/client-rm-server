@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   end
   
   post '/users_listings/saved', to: 'users_listings#save_listing'
+  post '/users_listings/delete', to: 'users_listings#delete_listing'
   get '/listings/api', to: 'listings#api_call'
   post '/listings/search', to: 'listings#search'
   resources :listings 

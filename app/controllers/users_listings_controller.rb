@@ -7,11 +7,18 @@ class UsersListingsController < ApplicationController
     end
 
     def save_listing
-        # byebug
-        listing = Listing.find_or_create_by(params[:listing][:result].permit!)
-        user = User.find(params[:user_id])
-        user.listings << listing
-        render json: user.listings
+      # byebug
+      listing = Listing.find_or_create_by(params[:listing][:result].permit!)
+      user = User.find(params[:user_id])
+      user.listings << listing
+      render json: user.listings
+    end
+
+    def delete_listing
+        listing = Listing.find_by(params[:listing][:result].permit!)
+        byebug
+        listing.destroy 
+        puts "Listing Deleted!"
     end
 
     # def show
